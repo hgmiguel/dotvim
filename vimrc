@@ -1,4 +1,5 @@
 set nocompatible
+set encoding=utf-8
 filetype off 
 "hack, vim don't work with fishshell
 set shell=/bin/sh
@@ -40,6 +41,12 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'jamessan/vim-gnupg'
 Bundle 'bash-support.vim'
 Bundle 'rodjek/vim-puppet.git'
+"Bundle 'vim-syntastic/syntastic'
+"Plugin 'speshak/vim-cfn'
+Plugin 'w0rp/ale'
+Bundle 'Valloric/YouCompleteMe'
+Plugin 'klen/python-mode'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -281,7 +288,7 @@ au BufNewFile,BufRead *.schema set filetype=json
 "to work with fuckin max osx
 "set clipboard=unnamed
 
-let g:grails_import_list_file=$HOME."/.vim/grailsImportList.txt"
+"let g:grails_import_list_file=$HOME."/.vim/grailsImportList.txt"
 "
 " vertical line indentation
 let g:indentLine_color_term = 239
@@ -303,3 +310,16 @@ nnoremap <leader>l :TagbarToggle<CR>
 "json
 let g:vim_json_syntax_conceal=0
 set conceallevel=0
+let g:NERDTreeDirArrowExpandable="+"
+let g:NERDTreeDirArrowCollapsible="~"
+
+
+"Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0

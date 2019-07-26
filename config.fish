@@ -1,6 +1,6 @@
 #
-set -gx LANG es_MX.UTF-8
-set -gx LC_ALL es_MX.UTF-8
+#set -gx LANG es_MX.UTF-8
+#set -gx LC_ALL es_MX.UTF-8
 
 # Path to Oh My Fish install.
 set -q XDG_DATA_HOME
@@ -17,16 +17,18 @@ source $OMF_PATH/init.fish
 # Path to your custom folder (default path is $FISH/custom)
 #set fish_custom $HOME/dotfiles/oh-my-fish
 #
-set --export EDITOR "vim -f"
 #set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
-set vi_mode_default vi_mode_normal
+#set vi_mode_default vi_mode_normal
 
 # Load oh-my-fish configuration.
-source $OMF_PATH/init.fish
+#source $OMF_PATH/init.fish
 
-alias tmux "env TERM=screen-256color-bce tmux -2"
-set -gx TERM screen-256color-bce
-set -gx JAVA_HOME "/usr/lib/jvm/java-7-openjdk-amd64"
+#alias tmux "env TERM=screen-256color-bce tmux -2"
+#set -gx TERM screen-256color-bce
+#set -gx JAVA_HOME "/usr/lib/jvm/java-7-openjdk-amd64"
+#
+set -gx JAVA_HOME (/usr/libexec/java_home)
+#set -gx TERM xterm
 
 alias ssh_vagrant="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "
 alias rsync_vagrant="rsync -avz -e ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "
@@ -34,3 +36,7 @@ alias rsync_vagrant="rsync -avz -e ssh -o UserKnownHostsFile=/dev/null -o Strict
 #set -x http_proxy http://10.230.2.251:3128
 #set -x https_proxy https://10.230.2.251:3128
 
+set --export EDITOR "vim -f"
+set -g fish_user_paths "/usr/local/opt/node@8/bin" $fish_user_paths
+
+source ~/.iterm2_shell_integration.(basename $SHELL)
