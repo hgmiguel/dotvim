@@ -1,4 +1,5 @@
 set nocompatible
+set encoding=utf-8
 filetype off 
 "hack, vim don't work with fishshell
 set shell=/bin/bash
@@ -36,8 +37,13 @@ Plugin 'majutsushi/tagbar'
 " Plugin 'elzr/vim-json'
 " Plugin 'plasticboy/vim-markdown'
 Plugin 'jamessan/vim-gnupg'
-" Bundle 'bash-support.vim'
-" Bundle 'rodjek/vim-puppet.git'
+Bundle 'bash-support.vim'
+"Bundle 'vim-syntastic/syntastic'
+"Plugin 'speshak/vim-cfn'
+Plugin 'w0rp/ale'
+Bundle 'Valloric/YouCompleteMe'
+Plugin 'klen/python-mode'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -259,5 +265,17 @@ nnoremap <leader>l :TagbarToggle<CR>
 "json
 let g:vim_json_syntax_conceal=0
 set conceallevel=0
-
 let g:gitgutter_set_sign_backgrounds = 1
+let g:NERDTreeDirArrowExpandable="+"
+let g:NERDTreeDirArrowCollapsible="~"
+
+
+"Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
