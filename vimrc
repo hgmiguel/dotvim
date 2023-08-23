@@ -2,7 +2,7 @@ set nocompatible
 set encoding=utf-8
 filetype off 
 "hack, vim don't work with fishshell
-set shell=/bin/sh
+set shell=/bin/bash
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -11,17 +11,13 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " plugins
-Plugin 'airblade/vim-gitgutter'
-Plugin 'Tabular'
-"Plugin 'farseer90718/vim-taskwarrior'
-Plugin 'NathanNeff/grails-vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'sjurgemeyer/vim-grails-import'
+" Plugin 'farseer90718/vim-taskwarrior'
 Bundle 'karlbright/qfdo.vim'
 Bundle 'scrooloose/nerdcommenter'
+Plugin 'airblade/vim-gitgutter.git'
 Bundle 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Bundle 'tpope/vim-fugitive'
@@ -32,15 +28,16 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Yggdroot/indentLine'
-Bundle 'kchmck/vim-coffee-script'
+Bundle 'joshdick/onedark.vim'
+Plugin 'arcticicestudio/nord-vim'
+" Bundle 'kchmck/vim-coffee-script'
 Bundle 'terryma/vim-multiple-cursors'
-"Plugin 'Raimondi/delimitMate' 
+" Plugin 'Raimondi/delimitMate' 
 Plugin 'majutsushi/tagbar'
-Plugin 'elzr/vim-json'
-Plugin 'plasticboy/vim-markdown'
+" Plugin 'elzr/vim-json'
+" Plugin 'plasticboy/vim-markdown'
 Plugin 'jamessan/vim-gnupg'
 Bundle 'bash-support.vim'
-Bundle 'rodjek/vim-puppet.git'
 "Bundle 'vim-syntastic/syntastic'
 "Plugin 'speshak/vim-cfn'
 Plugin 'w0rp/ale'
@@ -50,6 +47,7 @@ Plugin 'klen/python-mode'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
 
 "call pathogen#infect()
 "call pathogen#incubate()
@@ -93,8 +91,6 @@ set ofu=syntaxcomplete#Complete
 "runtime macros/matchit.vim
 
 
-set term=xterm-256color
-let g:solarized_termcolors=16
 let g:multi_cursor_next_key='<C-m>'
 
 map <C-n> :NERDTreeToggle<CR>
@@ -103,9 +99,12 @@ let g:NERDTreeDirArrows=0
 
 let g:fugitive_git_executable='LANG=en_US.UTF8 git'
 
-set background=dark
-set t_Co=16
-colorscheme solarized
+set term=xterm-256color
+let g:solarized_termcolors=16
+set t_Co=24
+set termguicolors
+"set background=dark
+colorscheme nord
 
 set statusline=%F%m%r%h%w\ 
 set statusline+=%{fugitive#statusline()}\    
@@ -116,13 +115,6 @@ command! W w
 "set gcr=n:blinkono
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
-
-if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-endif
 
 if exists("g:ctrlp_user_command")
   unlet g:ctrlp_user_command
@@ -200,7 +192,7 @@ map <leader>f :CommandTFlush<CR>
 
 map <leader>b :CtrlPMRU<CR>
 
-:au FocusLost * :wa
+:au FocusLost * !silent :wa
 :set autowrite
 
 set backupdir=./.backup,.,/tmp
@@ -227,43 +219,6 @@ function! GetRunningOS()
 endfunction
 let os=GetRunningOS()
 
-"Grails testing
-map <S-F9> <Esc>:w<CR>:call RunSingleGrailsTest()<CR>
-map <F9> <Esc>:w<CR>:call RunGrailsTestFile()<CR>
-map <D-F9> :call RunLastCommandInTerminal()<CR>
-command! TestResults :call TestResults()
-map <leader>gi :call TestResults()<CR>
-
-function! RunSingleGrailsTest()
-    let testName = expand("%:t:r.") . "." . expand("<cword>")
-    :call RunGrailsTest(testName)
-endfunction
-
-function! RunGrailsTestFile()
-    let testName = expand("%:t:r")
-    :call RunGrailsTest(testName)
-endfunction
-
-function! RunGrailsTest(testName)
-    let path = expand("%:r")
-    if path =~ "integration"
-        let flag = "--integration"
-    else
-        let flag = "--unit"
-    endif
-    execute ":!grails test-app " . flag . " " . a:testName
-endfunction
-
-
-function! TestResults()
-    let os=GetRunningOS()
-    if os=~"unix"
-        execute ":!gnome-open target/test-reports/html/index.html"
-    else
-        execute ":!open target/test-reports/html/index.html"
-    endif
-endfunction
-
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -286,13 +241,13 @@ au Syntax * RainbowParenthesesLoadBraces
 au BufNewFile,BufRead *.schema set filetype=json
 
 "to work with fuckin max osx
-"set clipboard=unnamed
+set clipboard=unnamedplus
 
 "let g:grails_import_list_file=$HOME."/.vim/grailsImportList.txt"
 "
 " vertical line indentation
-let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#09AA08'
+"let g:indentLine_color_term = 239
+"let g:indentLine_color_gui = '#09AA08'
 let g:indentLine_char = '|'
 
 " Map start key separately from next key
@@ -310,6 +265,7 @@ nnoremap <leader>l :TagbarToggle<CR>
 "json
 let g:vim_json_syntax_conceal=0
 set conceallevel=0
+let g:gitgutter_set_sign_backgrounds = 1
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
 
